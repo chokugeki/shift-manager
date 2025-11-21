@@ -1,0 +1,614 @@
+[
+  {
+    "id": "5s0bp00le",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "58nz3eyk6",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "k2g64k8wi",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "g3rzui6it",
+    "date": "2025-12-16",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "tgp8hq99z",
+    "date": "2025-12-23",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "kmsflg628",
+    "date": "2025-12-30",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "lf7zvzrxn",
+    "date": "2025-12-07",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "insgaayzy",
+    "date": "2025-12-29",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "xj0s4l2vb",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "m677qu86q",
+    "date": "2025-12-08",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "safrfbh8t",
+    "date": "2025-12-15",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "7rvddgp3g",
+    "date": "2025-12-22",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "el0aqmmu6",
+    "date": "2025-12-29",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "87820qc8a",
+    "date": "2025-12-06",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "exbkgm120",
+    "date": "2025-12-05",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "bvcyor4d0",
+    "date": "2025-12-06",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "x0xov83qd",
+    "date": "2025-12-13",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "gtyux1v9c",
+    "date": "2025-12-12",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "ta09j6nh5",
+    "date": "2025-12-19",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "wuhvcl23h",
+    "date": "2025-12-20",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "a3bgdd50t",
+    "date": "2025-12-27",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "ttc40sek7",
+    "date": "2025-12-26",
+    "staffId": "staff-1763711341844",
+    "type": "Off"
+  },
+  {
+    "id": "vugnazyd6",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "387eaayvq",
+    "date": "2025-12-10",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "67gvf41gq",
+    "date": "2025-12-17",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "dr5a8oqm7",
+    "date": "2025-12-24",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "rptmgb4k3",
+    "date": "2025-12-31",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "egdreqanu",
+    "date": "2025-12-06",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "u3pwzv0n9",
+    "date": "2025-12-13",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "4rxm17qfw",
+    "date": "2025-12-20",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "bdxh4x6sy",
+    "date": "2025-12-27",
+    "staffId": "staff-1763711346484",
+    "type": "Off"
+  },
+  {
+    "id": "yva5sc5hs",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711351156",
+    "type": "Off"
+  },
+  {
+    "id": "tugggd1e1",
+    "date": "2025-12-11",
+    "staffId": "staff-1763711351156",
+    "type": "Off"
+  },
+  {
+    "id": "o4jlvs9hj",
+    "date": "2025-12-18",
+    "staffId": "staff-1763711351156",
+    "type": "Off"
+  },
+  {
+    "id": "ijx1b7go7",
+    "date": "2025-12-25",
+    "staffId": "staff-1763711351156",
+    "type": "Off"
+  },
+  {
+    "id": "sqb69bu8z",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711358486",
+    "type": "Off"
+  },
+  {
+    "id": "v6azmazd3",
+    "date": "2025-12-10",
+    "staffId": "staff-1763711358486",
+    "type": "Off"
+  },
+  {
+    "id": "l8t9njyt7",
+    "date": "2025-12-17",
+    "staffId": "staff-1763711358486",
+    "type": "Off"
+  },
+  {
+    "id": "gw0msnvjm",
+    "date": "2025-12-24",
+    "staffId": "staff-1763711358486",
+    "type": "Off"
+  },
+  {
+    "id": "11rwzyu44",
+    "date": "2025-12-31",
+    "staffId": "staff-1763711358486",
+    "type": "Off"
+  },
+  {
+    "id": "ngphaxaa4",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711362469",
+    "type": "Off"
+  },
+  {
+    "id": "oltq1quot",
+    "date": "2025-12-10",
+    "staffId": "staff-1763711362469",
+    "type": "Off"
+  },
+  {
+    "id": "0398rm8tk",
+    "date": "2025-12-18",
+    "staffId": "staff-1763711362469",
+    "type": "Off"
+  },
+  {
+    "id": "nl0y94wxg",
+    "date": "2025-12-26",
+    "staffId": "staff-1763711362469",
+    "type": "Off"
+  },
+  {
+    "id": "kl5f7ao4k",
+    "date": "2025-12-29",
+    "staffId": "staff-1763711362469",
+    "type": "Off"
+  },
+  {
+    "id": "fv51i76ls",
+    "date": "2025-12-08",
+    "staffId": "staff-1763711370605",
+    "type": "Off"
+  },
+  {
+    "id": "jwj8nyq3z",
+    "date": "2025-12-22",
+    "staffId": "staff-1763711370605",
+    "type": "Off"
+  },
+  {
+    "id": "oxsun2skg",
+    "date": "2025-12-02",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "kt9ivc9g3",
+    "date": "2025-12-09",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "ixq5fdcq5",
+    "date": "2025-12-16",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "ipu0oi24r",
+    "date": "2025-12-23",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "0lcymmiru",
+    "date": "2025-12-30",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "1n3k3eq92",
+    "date": "2025-12-05",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "qjqfkaxq6",
+    "date": "2025-12-01",
+    "staffId": "staff-1763712172020",
+    "type": "Off"
+  },
+  {
+    "id": "l4jqjh7f5",
+    "date": "2025-12-01",
+    "staffId": "staff-1763712175604",
+    "type": "Off"
+  },
+  {
+    "id": "ar7qolljj",
+    "date": "2025-12-08",
+    "staffId": "staff-1763712175604",
+    "type": "Off"
+  },
+  {
+    "id": "1mkwlcjm0",
+    "date": "2025-12-15",
+    "staffId": "staff-1763712175604",
+    "type": "Off"
+  },
+  {
+    "id": "vt1q2trjw",
+    "date": "2025-12-22",
+    "staffId": "staff-1763712175604",
+    "type": "Off"
+  },
+  {
+    "id": "dpkt6mdkw",
+    "date": "2025-12-29",
+    "staffId": "staff-1763712175604",
+    "type": "Off"
+  },
+  {
+    "id": "33je5m4q4",
+    "date": "2025-12-06",
+    "staffId": "staff-1763712175604",
+    "type": "Off"
+  },
+  {
+    "id": "ji7sujgge",
+    "date": "2025-12-03",
+    "staffId": "staff-1763712177860",
+    "type": "Off"
+  },
+  {
+    "id": "r4s3uyx06",
+    "date": "2025-12-10",
+    "staffId": "staff-1763712177860",
+    "type": "Off"
+  },
+  {
+    "id": "hwzbffhgg",
+    "date": "2025-12-17",
+    "staffId": "staff-1763712177860",
+    "type": "Off"
+  },
+  {
+    "id": "i6agfzaun",
+    "date": "2025-12-24",
+    "staffId": "staff-1763712177860",
+    "type": "Off"
+  },
+  {
+    "id": "6851e93mx",
+    "date": "2025-12-31",
+    "staffId": "staff-1763712177860",
+    "type": "Off"
+  },
+  {
+    "id": "ofvpqwuda",
+    "date": "2025-12-08",
+    "staffId": "staff-1763712180596",
+    "type": "Off"
+  },
+  {
+    "id": "g9bn6884k",
+    "date": "2025-12-15",
+    "staffId": "staff-1763712180596",
+    "type": "Off"
+  },
+  {
+    "id": "epwsj1aos",
+    "date": "2025-12-22",
+    "staffId": "staff-1763712180596",
+    "type": "Off"
+  },
+  {
+    "id": "xr678ha05",
+    "date": "2025-12-24",
+    "staffId": "staff-1763712180596",
+    "type": "Off"
+  },
+  {
+    "id": "nfc4z843g",
+    "date": "2025-12-17",
+    "staffId": "staff-1763712180596",
+    "type": "Off"
+  },
+  {
+    "id": "20nrofuvb",
+    "date": "2025-12-10",
+    "staffId": "staff-1763712180596",
+    "type": "Off"
+  },
+  {
+    "id": "t5fy2xk6j",
+    "date": "2025-12-05",
+    "staffId": "staff-1763712183940",
+    "type": "Off"
+  },
+  {
+    "id": "eriwa00fg",
+    "date": "2025-12-12",
+    "staffId": "staff-1763712183940",
+    "type": "Off"
+  },
+  {
+    "id": "4e83fcg5s",
+    "date": "2025-12-19",
+    "staffId": "staff-1763712183940",
+    "type": "Off"
+  },
+  {
+    "id": "24rbp0sh4",
+    "date": "2025-12-26",
+    "staffId": "staff-1763712183940",
+    "type": "Off"
+  },
+  {
+    "id": "mhmhkaa06",
+    "date": "2025-12-07",
+    "staffId": "staff-1763712183940",
+    "type": "Off"
+  },
+  {
+    "id": "p4tjmn9dw",
+    "date": "2025-12-06",
+    "staffId": "staff-1763712186148",
+    "type": "Off"
+  },
+  {
+    "id": "tdpphlpk2",
+    "date": "2025-12-13",
+    "staffId": "staff-1763712186148",
+    "type": "Off"
+  },
+  {
+    "id": "yfv5gpi27",
+    "date": "2025-12-20",
+    "staffId": "staff-1763712186148",
+    "type": "Off"
+  },
+  {
+    "id": "mkevfiedf",
+    "date": "2025-12-27",
+    "staffId": "staff-1763712186148",
+    "type": "Off"
+  },
+  {
+    "id": "hk4hioryx",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "g7qbmolfo",
+    "date": "2025-12-08",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "9gxelqu19",
+    "date": "2025-12-15",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "f3n6qby7t",
+    "date": "2025-12-22",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "23w35uzws",
+    "date": "2025-12-10",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "r8mqcf7v9",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "p9suzav8p",
+    "date": "2025-12-17",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "3hju7dpqh",
+    "date": "2025-12-24",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "7ascn5l0m",
+    "date": "2025-12-31",
+    "staffId": "staff-1763711332444",
+    "type": "Off"
+  },
+  {
+    "id": "zqlolyefw",
+    "date": "2025-12-01",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "df61f2oaq",
+    "date": "2025-12-02",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "fl1i93to1",
+    "date": "2025-12-15",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "4eoakqqmh",
+    "date": "2025-12-16",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "1f0d250r0",
+    "date": "2025-12-30",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "nwde0dtcv",
+    "date": "2025-12-01",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "jklwler2n",
+    "date": "2025-12-29",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "n4ugwo57z",
+    "date": "2025-12-06",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "nmzg0yed3",
+    "date": "2025-12-13",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "81xu1zt3m",
+    "date": "2025-12-20",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "ibhllwpa9",
+    "date": "2025-12-27",
+    "staffId": "staff-1763711325981",
+    "type": "Off"
+  },
+  {
+    "id": "g9frp58xe",
+    "date": "2025-12-09",
+    "staffId": "",
+    "type": "Off"
+  },
+  {
+    "id": "3bgg4ndpd",
+    "date": "2025-12-23",
+    "staffId": "",
+    "type": "Off"
+  }
+]

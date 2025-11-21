@@ -1,0 +1,466 @@
+[
+  {
+    "id": "imnkrj6f1",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711332444",
+    "startTime": "17:00",
+    "endTime": "19:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "zs2x3pkdk",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711332444",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "yzxtsia4z",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711341844",
+    "startTime": "15:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "fmu7lmbyg",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711341844",
+    "startTime": "11:00",
+    "endTime": "11:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "0vft9pigw",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711346484",
+    "startTime": "16:00",
+    "endTime": "18:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "tlu945wic",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711351156",
+    "startTime": "11:00",
+    "endTime": "13:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "hiy90e546",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711358486",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "7ox83shvc",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711370605",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "f9nww1djk",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711370605",
+    "startTime": "08:00",
+    "endTime": "10:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "zgb5jqguk",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711332444",
+    "startTime": "07:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "x3zmnu18t",
+    "date": "2025-12-02",
+    "staffId": "staff-1763711341844",
+    "startTime": "07:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "zy8pe99oq",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711325981",
+    "startTime": "08:30",
+    "endTime": "10:00",
+    "taskTypeId": "task-1763711529021"
+  },
+  {
+    "id": "anplzk3ve",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711341844",
+    "startTime": "08:30",
+    "endTime": "10:00",
+    "taskTypeId": "task-1763711566848"
+  },
+  {
+    "id": "7qiw8ak8r",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711351156",
+    "startTime": "08:30",
+    "endTime": "10:00",
+    "taskTypeId": "task-1763711580358"
+  },
+  {
+    "id": "j9y9rerbu",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711362469",
+    "startTime": "08:30",
+    "endTime": "09:00",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "ujeib4swu",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711370605",
+    "startTime": "08:30",
+    "endTime": "11:00",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "h93nwycg7",
+    "date": "2025-12-03",
+    "staffId": "staff-1763711341844",
+    "startTime": "12:00",
+    "endTime": "14:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "jbbv5cnnu",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711325981",
+    "startTime": "08:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763711529021"
+  },
+  {
+    "id": "nrh4uta2i",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711332444",
+    "startTime": "08:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763711566848"
+  },
+  {
+    "id": "o4my7x97h",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711341844",
+    "startTime": "08:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763711580358"
+  },
+  {
+    "id": "j98p8n4db",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711346484",
+    "startTime": "08:00",
+    "endTime": "08:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "yiz49dofc",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711351156",
+    "startTime": "08:00",
+    "endTime": "10:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "nftbss7hc",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711358486",
+    "startTime": "08:00",
+    "endTime": "10:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "f99txr313",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711362469",
+    "startTime": "08:00",
+    "endTime": "10:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "pz62uojww",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711370605",
+    "startTime": "08:00",
+    "endTime": "10:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "zvcs1lmt8",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711325981",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "43vtu51ek",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711332444",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "60v1y8t69",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711341844",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "t6mkq4aoq",
+    "date": "2025-12-01",
+    "staffId": "staff-1763711346484",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "48ww4e7ve",
+    "date": "2025-12-02",
+    "staffId": "staff-1763712175604",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "65ehvokfn",
+    "date": "2025-12-02",
+    "staffId": "staff-1763712177860",
+    "startTime": "13:00",
+    "endTime": "15:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "rddpotimv",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711332444",
+    "startTime": "17:00",
+    "endTime": "19:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "hj5h3slja",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711332444",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "b1r2skho2",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711341844",
+    "startTime": "15:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "ewpwt2ft4",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711341844",
+    "startTime": "11:00",
+    "endTime": "11:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "ui25nuq6g",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711346484",
+    "startTime": "16:00",
+    "endTime": "18:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "w2fxy6ys9",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711351156",
+    "startTime": "11:00",
+    "endTime": "13:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "w79npcmel",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711358486",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "aektdzr4b",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711370605",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "wbs5sghbb",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711370605",
+    "startTime": "08:00",
+    "endTime": "10:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "0jiyvoy85",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711332444",
+    "startTime": "07:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "3lsfbelwt",
+    "date": "2025-12-04",
+    "staffId": "staff-1763711341844",
+    "startTime": "07:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "c0nwar62i",
+    "date": "2025-12-04",
+    "staffId": "staff-1763712175604",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "flcv6fony",
+    "date": "2025-12-04",
+    "staffId": "staff-1763712177860",
+    "startTime": "13:00",
+    "endTime": "15:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "abee6b90n",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711332444",
+    "startTime": "17:00",
+    "endTime": "19:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "u2vag74ym",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711332444",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "0cv64oeya",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711341844",
+    "startTime": "15:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "cryl1qm09",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711341844",
+    "startTime": "11:00",
+    "endTime": "11:30",
+    "taskTypeId": "task-1763711592030"
+  },
+  {
+    "id": "lrxrnmqil",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711346484",
+    "startTime": "16:00",
+    "endTime": "18:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "zmciahvc1",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711351156",
+    "startTime": "11:00",
+    "endTime": "13:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "aevm7eq3t",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711358486",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "njq7k6tws",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711370605",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "k4m5o1kf1",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711370605",
+    "startTime": "08:00",
+    "endTime": "10:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "w5ukmd2p7",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711332444",
+    "startTime": "07:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "9v4cxcg66",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711341844",
+    "startTime": "07:00",
+    "endTime": "09:30",
+    "taskTypeId": "task-1763712206234"
+  },
+  {
+    "id": "tib3p2k52",
+    "date": "2025-12-09",
+    "staffId": "staff-1763712175604",
+    "startTime": "13:00",
+    "endTime": "15:30",
+    "taskTypeId": "task-1763711632786"
+  },
+  {
+    "id": "4wv8vh8ib",
+    "date": "2025-12-09",
+    "staffId": "staff-1763712177860",
+    "startTime": "13:00",
+    "endTime": "15:00",
+    "taskTypeId": "task-1763711663673"
+  },
+  {
+    "id": "nyf1ov40e",
+    "date": "2025-12-09",
+    "staffId": "staff-1763711370605",
+    "startTime": "09:00",
+    "endTime": "10:30",
+    "taskTypeId": "task-1763711529021"
+  }
+]
