@@ -29,6 +29,14 @@ interface ShiftContextType {
 
 const ShiftContext = createContext<ShiftContextType | undefined>(undefined);
 
+const STORAGE_KEYS = {
+    STAFF: 'shift_manager_staff',
+    TASKS: 'shift_manager_tasks',
+    REQUESTS: 'shift_manager_requests',
+    SHIFTS: 'shift_manager_shifts',
+    ASSIGNMENTS: 'shift_manager_assignments'
+};
+
 export const ShiftProvider = ({ children }: { children: ReactNode }) => {
     const [staff, setStaff] = useState<Staff[]>([]);
     const [taskTypes, setTaskTypes] = useState<TaskType[]>([]);
@@ -37,31 +45,36 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
     const [assignments, setAssignments] = useState<TaskAssignment[]>([]);
     const [copiedAssignments, setCopiedAssignments] = useState<TaskAssignment[] | null>(null);
 
-    // Load initial data
+    // Load initial data from localStorage
     useEffect(() => {
-        const loadData = async () => {
+        const loadData = () => {
             try {
-                const [staffRes, tasksRes, shiftsRes] = await Promise.all([
-                    fetch('/api/staff'),
-                    fetch('/api/tasks'),
-                    fetch('/api/shifts')
-                ]);
+                const storedStaff = localStorage.getItem(STORAGE_KEYS.STAFF);
+                const storedTasks = localStorage.getItem(STORAGE_KEYS.TASKS);
+                const storedRequests = localStorage.getItem(STORAGE_KEYS.REQUESTS);
+                const storedShifts = localStorage.getItem(STORAGE_KEYS.SHIFTS);
+                const storedAssignments = localStorage.getItem(STORAGE_KEYS.ASSIGNMENTS);
 
-                const staffData = await staffRes.json();
-                const tasksData = await tasksRes.json();
-                const shiftsData = await shiftsRes.json();
-
-                setStaff(staffData);
-                setTaskTypes(tasksData);
-                setRequests(shiftsData.requests);
-                setShifts(shiftsData.shifts);
-                setAssignments(shiftsData.assignments);
+                if (storedStaff) setStaff(JSON.parse(storedStaff));
+                if (storedTasks) setTaskTypes(JSON.parse(storedTasks));
+                if (storedRequests) setRequests(JSON.parse(storedRequests));
+                if (storedShifts) setShifts(JSON.parse(storedShifts));
+                if (storedAssignments) setAssignments(JSON.parse(storedAssignments));
             } catch (error) {
-                console.error('Failed to load data:', error);
+                console.error('Failed to load data from localStorage:', error);
             }
         };
         loadData();
     }, []);
+
+    // Helper to save to localStorage
+    const saveToStorage = (key: string, data: any) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(data));
+        } catch (error) {
+            console.error(`Failed to save to ${key}:`, error);
+        }
+    };
 
     // Static Shift Types
     const shiftTypes: ShiftTypeDefinition[] = [
@@ -72,57 +85,42 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         { id: 'Night', label: '夜', name: '夜勤', color: '#e0e7ff' }
     ];
 
-    const addRequest = async (request: ShiftRequest) => {
-        setRequests((prev) => [...prev, request]);
-        await fetch('/api/shifts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'request', data: request }),
-        });
+    const addRequest = (request: ShiftRequest) => {
+        const newRequests = [...requests, request];
+        setRequests(newRequests);
+        saveToStorage(STORAGE_KEYS.REQUESTS, newRequests);
     };
 
-    const removeRequest = async (requestId: string) => {
-        setRequests((prev) => prev.filter((r) => r.id !== requestId));
-        await fetch('/api/shifts', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'request', id: requestId }),
-        });
+    const removeRequest = (requestId: string) => {
+        const newRequests = requests.filter((r) => r.id !== requestId);
+        setRequests(newRequests);
+        saveToStorage(STORAGE_KEYS.REQUESTS, newRequests);
     };
 
-    const updateShift = async (shift: Shift) => {
-        setShifts((prev) => {
-            const existing = prev.findIndex((s) => s.id === shift.id);
-            if (existing >= 0) {
-                const newShifts = [...prev];
-                newShifts[existing] = shift;
-                return newShifts;
-            }
-            return [...prev, shift];
-        });
-        await fetch('/api/shifts', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'shift', data: shift }),
-        });
+    const updateShift = (shift: Shift) => {
+        let newShifts = [...shifts];
+        const existingIndex = newShifts.findIndex((s) => s.id === shift.id);
+
+        if (existingIndex >= 0) {
+            newShifts[existingIndex] = shift;
+        } else {
+            newShifts.push(shift);
+        }
+
+        setShifts(newShifts);
+        saveToStorage(STORAGE_KEYS.SHIFTS, newShifts);
     };
 
-    const addAssignment = async (assignment: TaskAssignment) => {
-        setAssignments((prev) => [...prev, assignment]);
-        await fetch('/api/shifts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'assignment', data: assignment }),
-        });
+    const addAssignment = (assignment: TaskAssignment) => {
+        const newAssignments = [...assignments, assignment];
+        setAssignments(newAssignments);
+        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, newAssignments);
     };
 
-    const removeAssignment = async (assignmentId: string) => {
-        setAssignments((prev) => prev.filter((a) => a.id !== assignmentId));
-        await fetch('/api/shifts', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'assignment', id: assignmentId }),
-        });
+    const removeAssignment = (assignmentId: string) => {
+        const newAssignments = assignments.filter((a) => a.id !== assignmentId);
+        setAssignments(newAssignments);
+        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, newAssignments);
     };
 
     const getShiftsByDate = (date: string) => {
@@ -133,73 +131,52 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         return assignments.filter((a) => a.date === date);
     };
 
-    const addStaff = async (newStaff: Staff) => {
-        setStaff((prev) => [...prev, newStaff]);
-        await fetch('/api/staff', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newStaff),
-        });
+    const addStaff = (newStaff: Staff) => {
+        const updatedStaff = [...staff, newStaff];
+        setStaff(updatedStaff);
+        saveToStorage(STORAGE_KEYS.STAFF, updatedStaff);
     };
 
-    const updateStaff = async (updatedStaff: Staff) => {
-        setStaff((prev) => prev.map(s => s.id === updatedStaff.id ? updatedStaff : s));
-        await fetch('/api/staff', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedStaff),
-        });
+    const updateStaff = (updatedStaffItem: Staff) => {
+        const updatedStaff = staff.map(s => s.id === updatedStaffItem.id ? updatedStaffItem : s);
+        setStaff(updatedStaff);
+        saveToStorage(STORAGE_KEYS.STAFF, updatedStaff);
     };
 
-    const deleteStaff = async (id: string) => {
-        setStaff((prev) => prev.filter(s => s.id !== id));
-        await fetch(`/api/staff?id=${id}`, {
-            method: 'DELETE',
-        });
+    const deleteStaff = (id: string) => {
+        const updatedStaff = staff.filter(s => s.id !== id);
+        setStaff(updatedStaff);
+        saveToStorage(STORAGE_KEYS.STAFF, updatedStaff);
     };
 
-    const addTaskType = async (newTaskType: TaskType) => {
-        setTaskTypes((prev) => [...prev, newTaskType]);
-        await fetch('/api/tasks', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newTaskType),
-        });
+    const addTaskType = (newTaskType: TaskType) => {
+        const updatedTasks = [...taskTypes, newTaskType];
+        setTaskTypes(updatedTasks);
+        saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
     };
 
-    const updateTaskType = async (updatedTask: TaskType) => {
-        setTaskTypes((prev) => prev.map(t => t.id === updatedTask.id ? updatedTask : t));
-        await fetch('/api/tasks', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedTask),
-        });
+    const updateTaskType = (updatedTask: TaskType) => {
+        const updatedTasks = taskTypes.map(t => t.id === updatedTask.id ? updatedTask : t);
+        setTaskTypes(updatedTasks);
+        saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
     };
 
     const copyAssignments = (assignmentsToCopy: TaskAssignment[]) => {
         setCopiedAssignments(assignmentsToCopy);
     };
 
-    const pasteAssignments = async (targetDate: string) => {
+    const pasteAssignments = (targetDate: string) => {
         if (!copiedAssignments) return;
 
-        const newAssignments = copiedAssignments.map(a => ({
+        const newAssignmentsToAdd = copiedAssignments.map(a => ({
             ...a,
             id: Math.random().toString(36).substr(2, 9),
             date: targetDate
         }));
 
-        setAssignments(prev => [...prev, ...newAssignments]);
-
-        // Persist each new assignment
-        // Note: In a production app, we should have a bulk add API
-        for (const assignment of newAssignments) {
-            await fetch('/api/shifts', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ type: 'assignment', data: assignment }),
-            });
-        }
+        const updatedAssignments = [...assignments, ...newAssignmentsToAdd];
+        setAssignments(updatedAssignments);
+        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, updatedAssignments);
     };
 
     return (
