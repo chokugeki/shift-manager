@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Shift, ShiftRequest, TaskAssignment, Staff, TaskType, ShiftTypeDefinition } from '@/types';
+import { fetchFromJSONBin, updateJSONBin } from '@/services/jsonbin';
 
 interface ShiftContextType {
     staff: Staff[];
@@ -25,6 +26,8 @@ interface ShiftContextType {
     copiedAssignments: TaskAssignment[] | null;
     copyAssignments: (assignments: TaskAssignment[]) => void;
     pasteAssignments: (targetDate: string) => void;
+    saveToCloud: (apiKey: string, binId: string) => Promise<void>;
+    loadFromCloud: (apiKey: string, binId: string) => Promise<void>;
 }
 
 const ShiftContext = createContext<ShiftContextType | undefined>(undefined);
@@ -179,6 +182,41 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         saveToStorage(STORAGE_KEYS.ASSIGNMENTS, updatedAssignments);
     };
 
+    const saveToCloud = async (apiKey: string, binId: string) => {
+        const data = {
+            staff,
+            taskTypes,
+            requests,
+            shifts,
+            assignments
+        };
+        await updateJSONBin(binId, apiKey, data);
+    };
+
+    const loadFromCloud = async (apiKey: string, binId: string) => {
+        const data = await fetchFromJSONBin(binId, apiKey);
+        if (data.staff) {
+            setStaff(data.staff);
+            saveToStorage(STORAGE_KEYS.STAFF, data.staff);
+        }
+        if (data.taskTypes) {
+            setTaskTypes(data.taskTypes);
+            saveToStorage(STORAGE_KEYS.TASKS, data.taskTypes);
+        }
+        if (data.requests) {
+            setRequests(data.requests);
+            saveToStorage(STORAGE_KEYS.REQUESTS, data.requests);
+        }
+        if (data.shifts) {
+            setShifts(data.shifts);
+            saveToStorage(STORAGE_KEYS.SHIFTS, data.shifts);
+        }
+        if (data.assignments) {
+            setAssignments(data.assignments);
+            saveToStorage(STORAGE_KEYS.ASSIGNMENTS, data.assignments);
+        }
+    };
+
     return (
         <ShiftContext.Provider
             value={{
@@ -203,6 +241,8 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                 copiedAssignments,
                 copyAssignments,
                 pasteAssignments,
+                saveToCloud,
+                loadFromCloud,
             }}
         >
             {children}
