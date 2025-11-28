@@ -76,6 +76,10 @@ export default function SchedulePage() {
                 <Link href="/" className="text-blue-600 hover:underline no-print">トップへ戻る</Link>
             </div>
 
+            <div className="print-only-title" style={{ display: 'none' }}>
+                <h1 className="text-2xl font-bold text-center mb-4">{format(currentMonth, 'yyyy年 M月', { locale: ja })} シフト表</h1>
+            </div>
+
             <div className="schedule-table-container">
                 <table className="schedule-table">
                     <thead>

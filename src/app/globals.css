@@ -782,6 +782,8 @@ button {
   /* Reset visibility for the content we want to print */
   body.print-monthly .schedule-table-container,
   body.print-monthly .schedule-table-container *,
+  body.print-monthly .print-only-title,
+  body.print-monthly .print-only-title *,
   body.print-gantt .gantt-container,
   body.print-gantt .gantt-container * {
     visibility: visible;
@@ -791,10 +793,20 @@ button {
   body.print-monthly .schedule-table-container {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 3rem;
+    /* Make space for title */
     width: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  body.print-monthly .print-only-title {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
   }
 
   body.print-gantt .gantt-container {
