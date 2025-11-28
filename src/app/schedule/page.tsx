@@ -48,18 +48,32 @@ export default function SchedulePage() {
         return counts;
     };
 
+    const handlePrintMonthly = () => {
+        document.body.classList.add('print-monthly');
+        window.print();
+        setTimeout(() => {
+            document.body.classList.remove('print-monthly');
+        }, 500);
+    };
+
     return (
         <div className="container-fluid">
             <div className="page-header">
                 <h1 className="page-title">シフト作成・管理</h1>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 no-print">
                     <button onClick={prevMonth} className="btn btn-outline">&lt; 前月</button>
                     <div className="text-xl font-bold">
                         {format(currentMonth, 'yyyy年 M月', { locale: ja })}
                     </div>
                     <button onClick={nextMonth} className="btn btn-outline">次月 &gt;</button>
+                    <button onClick={handlePrintMonthly} className="btn btn-primary flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        印刷
+                    </button>
                 </div>
-                <Link href="/" className="text-blue-600 hover:underline">トップへ戻る</Link>
+                <Link href="/" className="text-blue-600 hover:underline no-print">トップへ戻る</Link>
             </div>
 
             <div className="schedule-table-container">
@@ -147,7 +161,7 @@ export default function SchedulePage() {
                 </div>
             )}
 
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center no-print">
                 <Link href="/" className="text-blue-600 hover:underline">トップへ戻る</Link>
             </div>
         </div>

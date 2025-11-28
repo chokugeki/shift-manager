@@ -762,3 +762,78 @@ button {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+
+/* Print Styles */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  body {
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide everything by default when printing specific sections */
+  body.print-monthly>*:not(.container-fluid),
+  body.print-monthly header,
+  body.print-monthly footer,
+  body.print-gantt>*:not(.container-fluid),
+  body.print-gantt header,
+  body.print-gantt footer {
+    display: none !important;
+  }
+
+  /* Hide non-print elements */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Monthly Shift Print Mode */
+  body.print-monthly .container-fluid {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  body.print-monthly .page-header {
+    margin-bottom: 1rem;
+  }
+
+  body.print-monthly .gantt-container,
+  body.print-monthly .mt-8 {
+    display: none !important;
+  }
+
+  /* Gantt Chart Print Mode */
+  body.print-gantt .container-fluid>*:not(.gantt-container) {
+    display: none !important;
+  }
+
+  body.print-gantt .gantt-container {
+    display: block !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  body.print-gantt .gantt-wrapper {
+    margin-top: 0 !important;
+    border-top: none !important;
+    padding-top: 0 !important;
+  }
+
+  body.print-gantt .gantt-scroll {
+    overflow: visible !important;
+  }
+
+  body.print-gantt .gantt-table {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
