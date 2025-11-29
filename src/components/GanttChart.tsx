@@ -127,7 +127,7 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
 
             <div className="task-type-selector no-print" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
+                gridTemplateColumns: 'repeat(8, 1fr)',
                 gap: '0.5rem',
                 overflowX: 'visible',
                 flexWrap: 'wrap'
