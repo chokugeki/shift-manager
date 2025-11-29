@@ -119,7 +119,8 @@ export default function SchedulePage() {
                                                 className={`shift-select ${request ? 'is-request' : ''}`}
                                                 style={{
                                                     backgroundColor: currentShiftType?.color || '#fff',
-                                                    color: '#000'
+                                                    color: displayType === 'Off' ? '#ef4444' : '#000',
+                                                    fontWeight: displayType === 'Off' ? 'bold' : 'normal'
                                                 }}
                                             >
                                                 {shiftTypes.map(t => (
