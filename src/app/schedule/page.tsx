@@ -118,7 +118,7 @@ export default function SchedulePage() {
                             })}
                             {/* Staff Summary Headers */}
                             {shiftTypes.map(type => (
-                                <th key={`header-${type.id}`} className="summary-header" style={{ minWidth: '40px', fontSize: '0.8rem' }}>
+                                <th key={`header-${type.id}`} className="summary-header text-center" style={{ minWidth: '40px', fontSize: '0.8rem' }}>
                                     {type.label}
                                 </th>
                             ))}
