@@ -21,7 +21,7 @@ for (let h = START_HOUR; h < END_HOUR; h++) {
 }
 
 export default function GanttChart({ date, shifts }: GanttChartProps) {
-    const { staff, taskTypes, assignments, requests, addAssignment, removeAssignment, copyAssignments, pasteAssignments, copiedAssignments } = useShiftContext();
+    const { staff, taskTypes, assignments, requests, addAssignment, removeAssignment, copyAssignments, pasteAssignments, clearAssignments, copiedAssignments } = useShiftContext();
     const [selectedTaskType, setSelectedTaskType] = useState<TaskType | null>(taskTypes[0]);
 
     // Filter staff who are working today (not Off)
@@ -121,6 +121,16 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                         disabled={!copiedAssignments}
                     >
                         貼り付け
+                    </button>
+                    <button
+                        onClick={() => {
+                            if (window.confirm('この日の配置をすべてクリアしますか？')) {
+                                clearAssignments(dateStr);
+                            }
+                        }}
+                        className="btn btn-outline btn-sm text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-200"
+                    >
+                        クリア
                     </button>
                 </div>
             </div>

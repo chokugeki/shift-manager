@@ -26,6 +26,7 @@ interface ShiftContextType {
     copiedAssignments: TaskAssignment[] | null;
     copyAssignments: (assignments: TaskAssignment[]) => void;
     pasteAssignments: (targetDate: string) => void;
+    clearAssignments: (date: string) => void;
     saveToCloud: (apiKey: string, binId: string) => Promise<void>;
     loadFromCloud: (apiKey: string, binId: string) => Promise<void>;
 }
@@ -182,6 +183,12 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         saveToStorage(STORAGE_KEYS.ASSIGNMENTS, updatedAssignments);
     };
 
+    const clearAssignments = (date: string) => {
+        const newAssignments = assignments.filter(a => a.date !== date);
+        setAssignments(newAssignments);
+        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, newAssignments);
+    };
+
     const saveToCloud = async (apiKey: string, binId: string) => {
         const data = {
             staff,
@@ -241,6 +248,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                 copiedAssignments,
                 copyAssignments,
                 pasteAssignments,
+                clearAssignments,
                 saveToCloud,
                 loadFromCloud,
             }}
