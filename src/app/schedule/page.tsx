@@ -48,6 +48,22 @@ export default function SchedulePage() {
         return counts;
     };
 
+    const getStaffMonthlyCounts = (staffId: string) => {
+        const counts: Record<string, number> = {};
+        shiftTypes.forEach(t => counts[t.id] = 0);
+
+        daysInMonth.forEach(date => {
+            const type = getEffectiveShiftType(staffId, date, shifts, requests);
+            if (counts[type] !== undefined) {
+                counts[type]++;
+            } else {
+                counts[type] = (counts[type] || 0) + 1;
+            }
+        });
+
+        return counts;
+    };
+
     const handlePrintMonthly = () => {
         document.body.classList.add('print-monthly');
         window.print();
@@ -100,39 +116,54 @@ export default function SchedulePage() {
                                     </th>
                                 );
                             })}
+                            {/* Staff Summary Headers */}
+                            {shiftTypes.map(type => (
+                                <th key={`header-${type.id}`} className="summary-header" style={{ minWidth: '40px', fontSize: '0.8rem' }}>
+                                    {type.label}
+                                </th>
+                            ))}
                         </tr>
                     </thead>
                     <tbody>
-                        {staff.map(s => (
-                            <tr key={s.id}>
-                                <td className="sticky-col name-cell">{s.name}</td>
-                                {daysInMonth.map(date => {
-                                    const displayType = getEffectiveShiftType(s.id, date, shifts, requests);
-                                    const request = requests.find(r => r.staffId === s.id && r.date === format(date, 'yyyy-MM-dd'));
-                                    const currentShiftType = shiftTypes.find(t => t.id === displayType) || shiftTypes.find(t => t.id === 'Day');
+                        {staff.map(s => {
+                            const staffCounts = getStaffMonthlyCounts(s.id);
+                            return (
+                                <tr key={s.id}>
+                                    <td className="sticky-col name-cell">{s.name}</td>
+                                    {daysInMonth.map(date => {
+                                        const displayType = getEffectiveShiftType(s.id, date, shifts, requests);
+                                        const request = requests.find(r => r.staffId === s.id && r.date === format(date, 'yyyy-MM-dd'));
+                                        const currentShiftType = shiftTypes.find(t => t.id === displayType) || shiftTypes.find(t => t.id === 'Day');
 
-                                    return (
-                                        <td key={date.toISOString()} className="shift-cell">
-                                            <select
-                                                value={displayType}
-                                                onChange={(e) => handleShiftChange(s.id, date, e.target.value as ShiftType)}
-                                                className={`shift-select ${request ? 'is-request' : ''}`}
-                                                style={{
-                                                    backgroundColor: currentShiftType?.color || '#fff',
-                                                    color: displayType === 'Off' ? '#ef4444' : '#000',
-                                                    fontWeight: displayType === 'Off' ? 'bold' : 'normal'
-                                                }}
-                                            >
-                                                {shiftTypes.map(t => (
-                                                    <option key={t.id} value={t.id}>{t.label}</option>
-                                                ))}
-                                            </select>
-                                            {request && <div className="request-marker" />}
+                                        return (
+                                            <td key={date.toISOString()} className="shift-cell">
+                                                <select
+                                                    value={displayType}
+                                                    onChange={(e) => handleShiftChange(s.id, date, e.target.value as ShiftType)}
+                                                    className={`shift-select ${request ? 'is-request' : ''}`}
+                                                    style={{
+                                                        backgroundColor: currentShiftType?.color || '#fff',
+                                                        color: displayType === 'Off' ? '#ef4444' : '#000',
+                                                        fontWeight: displayType === 'Off' ? 'bold' : 'normal'
+                                                    }}
+                                                >
+                                                    {shiftTypes.map(t => (
+                                                        <option key={t.id} value={t.id}>{t.label}</option>
+                                                    ))}
+                                                </select>
+                                                {request && <div className="request-marker" />}
+                                            </td>
+                                        );
+                                    })}
+                                    {/* Staff Summary Counts */}
+                                    {shiftTypes.map(type => (
+                                        <td key={`count-${s.id}-${type.id}`} className="text-center font-bold" style={{ backgroundColor: '#f8fafc' }}>
+                                            {staffCounts[type.id] || 0}
                                         </td>
-                                    );
-                                })}
-                            </tr>
-                        ))}
+                                    ))}
+                                </tr>
+                            );
+                        })}
 
                         {/* Dynamic Validation Rows */}
                         {shiftTypes.map(type => (
@@ -151,6 +182,10 @@ export default function SchedulePage() {
                                         </td>
                                     );
                                 })}
+                                {/* Empty cells for summary columns in validation rows */}
+                                {shiftTypes.map(t => (
+                                    <td key={`validation-empty-${type.id}-${t.id}`} style={{ backgroundColor: '#f1f5f9' }}></td>
+                                ))}
                             </tr>
                         ))}
                     </tbody>
