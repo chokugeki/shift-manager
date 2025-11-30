@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="container py-12">
       <div className="text-center mb-12">
-        <h1 className="main-title">介護シフト管理システム</h1>
+        <h1 className="main-title">チャート式シフト管理システム</h1>
         <p className="subtitle">
           シンプルで使いやすい、次世代のシフト管理ツール
         </p>
