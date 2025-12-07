@@ -23,6 +23,7 @@ interface ShiftContextType {
     deleteStaff: (id: string) => void;
     addTaskType: (taskType: TaskType) => void;
     updateTaskType: (taskType: TaskType) => void;
+    deleteTaskType: (id: string) => void;
     copiedAssignments: TaskAssignment[] | null;
     copyAssignments: (assignments: TaskAssignment[]) => void;
     pasteAssignments: (targetDate: string) => void;
@@ -165,6 +166,12 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
     };
 
+    const deleteTaskType = (id: string) => {
+        const updatedTasks = taskTypes.filter(t => t.id !== id);
+        setTaskTypes(updatedTasks);
+        saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
+    };
+
     const copyAssignments = (assignmentsToCopy: TaskAssignment[]) => {
         setCopiedAssignments(assignmentsToCopy);
     };
@@ -245,6 +252,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                 deleteStaff,
                 addTaskType,
                 updateTaskType,
+                deleteTaskType,
                 copiedAssignments,
                 copyAssignments,
                 pasteAssignments,

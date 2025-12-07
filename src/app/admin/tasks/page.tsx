@@ -5,7 +5,7 @@ import { useShiftContext } from '@/context/ShiftContext';
 import Link from 'next/link';
 
 export default function TaskAdminPage() {
-    const { taskTypes, addTaskType, updateTaskType } = useShiftContext();
+    const { taskTypes, addTaskType, updateTaskType, deleteTaskType } = useShiftContext();
     const [newName, setNewName] = useState('');
     const [newDuration, setNewDuration] = useState(60);
     const [newColor, setNewColor] = useState('#FFB74D');
@@ -73,8 +73,8 @@ export default function TaskAdminPage() {
                             className="form-input"
                             value={newDuration}
                             onChange={(e) => setNewDuration(Number(e.target.value))}
-                            step={30}
-                            min={30}
+                            step={10}
+                            min={10}
                         />
                     </div>
                     <div className="control-group">
@@ -88,18 +88,35 @@ export default function TaskAdminPage() {
                     </div>
                     <div className="md:col-span-4 flex justify-end gap-2">
                         {editingId && (
-                            <button
-                                type="button"
-                                className="btn btn-outline"
-                                onClick={() => {
-                                    setEditingId(null);
-                                    setNewName('');
-                                    setNewDuration(60);
-                                    setNewColor('#FFB74D');
-                                }}
-                            >
-                                キャンセル
-                            </button>
+                            <>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-200"
+                                    onClick={() => {
+                                        if (window.confirm('本当に削除しますか？')) {
+                                            deleteTaskType(editingId);
+                                            setEditingId(null);
+                                            setNewName('');
+                                            setNewDuration(60);
+                                            setNewColor('#FFB74D');
+                                        }
+                                    }}
+                                >
+                                    削除
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline"
+                                    onClick={() => {
+                                        setEditingId(null);
+                                        setNewName('');
+                                        setNewDuration(60);
+                                        setNewColor('#FFB74D');
+                                    }}
+                                >
+                                    キャンセル
+                                </button>
+                            </>
                         )}
                         <button type="submit" className="btn btn-primary">
                             {editingId ? '更新' : '追加'}

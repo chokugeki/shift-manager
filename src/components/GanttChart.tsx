@@ -16,8 +16,9 @@ const START_HOUR = 7;
 const END_HOUR = 20;
 const TIME_SLOTS: string[] = [];
 for (let h = START_HOUR; h < END_HOUR; h++) {
-    TIME_SLOTS.push(`${h.toString().padStart(2, '0')}:00`);
-    TIME_SLOTS.push(`${h.toString().padStart(2, '0')}:30`);
+    for (let m = 0; m < 60; m += 10) {
+        TIME_SLOTS.push(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`);
+    }
 }
 
 export default function GanttChart({ date, shifts }: GanttChartProps) {
@@ -165,7 +166,7 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                         <div className="gantt-staff-col header">職員</div>
                         {TIME_SLOTS.map((t, i) => (
                             <div key={t} className="time-header" style={{ fontSize: '0.7rem', writingMode: 'vertical-lr' }}>
-                                {i % 2 === 0 ? t : ''}
+                                {i % 3 === 0 ? t : ''}
                             </div>
                         ))}
                     </div>
@@ -179,7 +180,7 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                     <div className="staff-name">{s.name}</div>
                                     <div className="shift-label">{shiftType}</div>
                                 </div>
-                                {TIME_SLOTS.map(time => {
+                                {TIME_SLOTS.map((time, index) => {
                                     const cellTime = parse(`${dateStr} ${time}`, 'yyyy-MM-dd HH:mm', new Date());
 
                                     // Find assignment covering this slot
@@ -193,6 +194,24 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                     const taskType = assignment ? taskTypes.find(t => t.id === assignment.taskTypeId) : null;
                                     const isStart = assignment && assignment.startTime === time;
 
+                                    // Check if previous/next slot is part of the same assignment
+                                    const prevTime = TIME_SLOTS[index - 1];
+                                    const nextTime = TIME_SLOTS[index + 1];
+
+                                    const isSameAsPrev = assignment && prevTime && (() => {
+                                        const t = parse(`${dateStr} ${prevTime}`, 'yyyy-MM-dd HH:mm', new Date());
+                                        const start = parse(`${dateStr} ${assignment.startTime}`, 'yyyy-MM-dd HH:mm', new Date());
+                                        const end = parse(`${dateStr} ${assignment.endTime}`, 'yyyy-MM-dd HH:mm', new Date());
+                                        return t >= start && t < end;
+                                    })();
+
+                                    const isSameAsNext = assignment && nextTime && (() => {
+                                        const t = parse(`${dateStr} ${nextTime}`, 'yyyy-MM-dd HH:mm', new Date());
+                                        const start = parse(`${dateStr} ${assignment.startTime}`, 'yyyy-MM-dd HH:mm', new Date());
+                                        const end = parse(`${dateStr} ${assignment.endTime}`, 'yyyy-MM-dd HH:mm', new Date());
+                                        return t >= start && t < end;
+                                    })();
+
                                     return (
                                         <div
                                             key={time}
@@ -200,8 +219,8 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                             className="time-cell"
                                             style={{
                                                 backgroundColor: taskType?.color,
-                                                borderLeft: '1px solid #eee',
-                                                borderRight: '1px solid #eee',
+                                                borderLeft: isSameAsPrev ? 'none' : '1px solid #eee',
+                                                borderRight: isSameAsNext ? 'none' : '1px solid #eee',
                                                 opacity: taskType ? 1 : 0.5,
                                                 cursor: 'pointer',
                                                 color: '#000'

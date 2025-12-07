@@ -7,8 +7,8 @@ import { Header } from "@/components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "介護施設シフト管理システム",
-  description: "Nursing Care Shift Management System",
+  title: "チャート式シフト管理システム",
+  description: "Chart-based Shift Management System",
 };
 
 export default function RootLayout({
