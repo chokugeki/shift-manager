@@ -24,6 +24,7 @@ for (let h = START_HOUR; h < END_HOUR; h++) {
 export default function GanttChart({ date, shifts }: GanttChartProps) {
     const { staff, taskTypes, assignments, requests, addAssignment, removeAssignment, copyAssignments, pasteAssignments, clearAssignments, copiedAssignments } = useShiftContext();
     const [selectedTaskType, setSelectedTaskType] = useState<TaskType | null>(taskTypes[0]);
+    const [hoveredCell, setHoveredCell] = useState<{ x: number; y: number; time: string } | null>(null);
 
     // Filter staff who are working today (not Off)
     const workingStaff = staff.filter(s => {
@@ -216,6 +217,19 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                         <div
                                             key={time}
                                             onClick={() => handleCellClick(s.id, time)}
+                                            onMouseEnter={(e) => {
+                                                if (!taskType) {
+                                                    setHoveredCell({ x: e.clientX, y: e.clientY, time });
+                                                } else {
+                                                    setHoveredCell(null);
+                                                }
+                                            }}
+                                            onMouseMove={(e) => {
+                                                if (!taskType) {
+                                                    setHoveredCell(prev => prev ? { ...prev, x: e.clientX, y: e.clientY } : { x: e.clientX, y: e.clientY, time });
+                                                }
+                                            }}
+                                            onMouseLeave={() => setHoveredCell(null)}
                                             className="time-cell"
                                             style={{
                                                 backgroundColor: taskType?.color,
@@ -225,7 +239,6 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                                 cursor: 'pointer',
                                                 color: '#000'
                                             }}
-                                            title={taskType ? `${taskType.name} (${assignment?.startTime} - ${assignment?.endTime})` : ''}
                                         >
                                             {isStart && taskType && (
                                                 <div className="task-marker" style={{
@@ -249,6 +262,22 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                     })}
                 </div>
             </div>
+            {hoveredCell && (
+                <div style={{
+                    position: 'fixed',
+                    top: hoveredCell.y - 30, // Position above cursor
+                    left: hoveredCell.x + 10, // Position to right of cursor
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    color: 'white',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                    zIndex: 1000,
+                    pointerEvents: 'none'
+                }}>
+                    {hoveredCell.time}
+                </div>
+            )}
         </div>
     );
 }
