@@ -228,7 +228,16 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                             title={taskType ? `${taskType.name} (${assignment?.startTime} - ${assignment?.endTime})` : ''}
                                         >
                                             {isStart && taskType && (
-                                                <div className="task-marker" style={{ fontSize: '0.6rem', overflow: 'hidden', whiteSpace: 'nowrap', paddingLeft: '2px' }}>
+                                                <div className="task-marker" style={{
+                                                    fontSize: '0.75rem',
+                                                    overflow: 'visible',
+                                                    whiteSpace: 'nowrap',
+                                                    paddingLeft: '4px',
+                                                    justifyContent: 'flex-start',
+                                                    width: 'max-content',
+                                                    right: 'auto',
+                                                    zIndex: 10
+                                                }}>
                                                     {taskType.name}
                                                 </div>
                                             )}
