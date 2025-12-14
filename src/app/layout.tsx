@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ShiftProvider } from "@/context/ShiftContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,12 +20,14 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <ShiftProvider>
-          <Header />
-          <main className="min-h-screen bg-gray-50">
-            {children}
-          </main>
-        </ShiftProvider>
+        <AuthProvider>
+          <ShiftProvider>
+            <Header />
+            <main className="min-h-screen bg-gray-50">
+              {children}
+            </main>
+          </ShiftProvider>
+        </AuthProvider>
       </body>
     </html>
   );

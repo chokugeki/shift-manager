@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Shift, ShiftRequest, TaskAssignment, Staff, TaskType, ShiftTypeDefinition } from '@/types';
-import { fetchFromJSONBin, updateJSONBin } from '@/services/jsonbin';
+import { supabase } from '@/lib/supabaseClient';
+import { useAuth } from './AuthContext';
 
 interface ShiftContextType {
     staff: Staff[];
@@ -11,77 +12,77 @@ interface ShiftContextType {
     requests: ShiftRequest[];
     shifts: Shift[];
     assignments: TaskAssignment[];
-    addRequest: (request: ShiftRequest) => void;
-    removeRequest: (requestId: string) => void;
-    updateShift: (shift: Shift) => void;
-    addAssignment: (assignment: TaskAssignment) => void;
-    removeAssignment: (assignmentId: string) => void;
+    addRequest: (request: ShiftRequest) => Promise<void>;
+    removeRequest: (requestId: string) => Promise<void>;
+    updateShift: (shift: Shift) => Promise<void>;
+    addAssignment: (assignment: TaskAssignment) => Promise<void>;
+    removeAssignment: (assignmentId: string) => Promise<void>;
     getShiftsByDate: (date: string) => Shift[];
     getAssignmentsByDate: (date: string) => TaskAssignment[];
-    addStaff: (staff: Staff) => void;
-    updateStaff: (staff: Staff) => void;
-    deleteStaff: (id: string) => void;
-    addTaskType: (taskType: TaskType) => void;
-    updateTaskType: (taskType: TaskType) => void;
-    deleteTaskType: (id: string) => void;
+    addStaff: (staff: Staff) => Promise<void>;
+    updateStaff: (staff: Staff) => Promise<void>;
+    deleteStaff: (id: string) => Promise<void>;
+    addTaskType: (taskType: TaskType) => Promise<void>;
+    updateTaskType: (taskType: TaskType) => Promise<void>;
+    deleteTaskType: (id: string) => Promise<void>;
     copiedAssignments: TaskAssignment[] | null;
     copyAssignments: (assignments: TaskAssignment[]) => void;
-    pasteAssignments: (targetDate: string) => void;
-    clearAssignments: (date: string) => void;
-    saveToCloud: (apiKey: string, binId: string) => Promise<void>;
-    loadFromCloud: (apiKey: string, binId: string) => Promise<void>;
+    pasteAssignments: (targetDate: string) => Promise<void>;
+    clearAssignments: (date: string) => Promise<void>;
+    loading: boolean;
 }
 
 const ShiftContext = createContext<ShiftContextType | undefined>(undefined);
 
-const STORAGE_KEYS = {
-    STAFF: 'shift_manager_staff',
-    TASKS: 'shift_manager_tasks',
-    REQUESTS: 'shift_manager_requests',
-    SHIFTS: 'shift_manager_shifts',
-    ASSIGNMENTS: 'shift_manager_assignments'
-};
-
 export const ShiftProvider = ({ children }: { children: ReactNode }) => {
+    const { user } = useAuth();
     const [staff, setStaff] = useState<Staff[]>([]);
     const [taskTypes, setTaskTypes] = useState<TaskType[]>([]);
     const [requests, setRequests] = useState<ShiftRequest[]>([]);
     const [shifts, setShifts] = useState<Shift[]>([]);
     const [assignments, setAssignments] = useState<TaskAssignment[]>([]);
     const [copiedAssignments, setCopiedAssignments] = useState<TaskAssignment[] | null>(null);
+    const [loading, setLoading] = useState(false);
 
-    // Load initial data from localStorage
+    // Initial Data Fetch
     useEffect(() => {
-        const loadData = () => {
-            try {
-                const storedStaff = localStorage.getItem(STORAGE_KEYS.STAFF);
-                const storedTasks = localStorage.getItem(STORAGE_KEYS.TASKS);
-                const storedRequests = localStorage.getItem(STORAGE_KEYS.REQUESTS);
-                const storedShifts = localStorage.getItem(STORAGE_KEYS.SHIFTS);
-                const storedAssignments = localStorage.getItem(STORAGE_KEYS.ASSIGNMENTS);
+        if (!user) {
+            setStaff([]);
+            setTaskTypes([]);
+            setRequests([]);
+            setShifts([]);
+            setAssignments([]);
+            return;
+        }
 
-                if (storedStaff) setStaff(JSON.parse(storedStaff));
-                if (storedTasks) setTaskTypes(JSON.parse(storedTasks));
-                if (storedRequests) setRequests(JSON.parse(storedRequests));
-                if (storedShifts) setShifts(JSON.parse(storedShifts));
-                if (storedAssignments) setAssignments(JSON.parse(storedAssignments));
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const [staffRes, tasksRes, shiftsRes, assignsRes, reqsRes] = await Promise.all([
+                    supabase.from('staff').select('*'),
+                    supabase.from('task_types').select('*'),
+                    supabase.from('shifts').select('*'),
+                    supabase.from('assignments').select('*'),
+                    supabase.from('requests').select('*'),
+                ]);
+
+                if (staffRes.data) setStaff(staffRes.data);
+                if (tasksRes.data) setTaskTypes(tasksRes.data);
+                if (shiftsRes.data) setShifts(shiftsRes.data);
+                if (assignsRes.data) setAssignments(assignsRes.data);
+                if (reqsRes.data) setRequests(reqsRes.data);
+
             } catch (error) {
-                console.error('Failed to load data from localStorage:', error);
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
             }
         };
-        loadData();
-    }, []);
 
-    // Helper to save to localStorage
-    const saveToStorage = (key: string, data: any) => {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-        } catch (error) {
-            console.error(`Failed to save to ${key}:`, error);
-        }
-    };
+        fetchData();
+    }, [user]);
 
-    // Static Shift Types
+    // Static Shift Types (Client-side constant for now)
     const shiftTypes: ShiftTypeDefinition[] = [
         { id: 'Day', label: '日', name: '日勤', color: '#ffffff' },
         { id: 'Off', label: '休', name: '公休', color: '#e2e8f0' },
@@ -90,93 +91,80 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         { id: 'Night', label: '夜', name: '夜勤', color: '#e0e7ff' }
     ];
 
-    const addRequest = (request: ShiftRequest) => {
-        const newRequests = [...requests, request];
-        setRequests(newRequests);
-        saveToStorage(STORAGE_KEYS.REQUESTS, newRequests);
+    // --- Actions ---
+
+    const addRequest = async (request: ShiftRequest) => {
+        // Optimistic update
+        setRequests(prev => [...prev, request]);
+        // DB update
+        await supabase.from('requests').insert(request);
     };
 
-    const removeRequest = (requestId: string) => {
-        const newRequests = requests.filter((r) => r.id !== requestId);
-        setRequests(newRequests);
-        saveToStorage(STORAGE_KEYS.REQUESTS, newRequests);
+    const removeRequest = async (requestId: string) => {
+        setRequests(prev => prev.filter(r => r.id !== requestId));
+        await supabase.from('requests').delete().eq('id', requestId);
     };
 
-    const updateShift = (shift: Shift) => {
-        let newShifts = [...shifts];
-        const existingIndex = newShifts.findIndex((s) => s.id === shift.id);
+    const updateShift = async (shift: Shift) => {
+        setShifts(prev => {
+            const index = prev.findIndex(s => s.id === shift.id);
+            if (index >= 0) {
+                const newShifts = [...prev];
+                newShifts[index] = shift;
+                return newShifts;
+            }
+            return [...prev, shift];
+        });
 
-        if (existingIndex >= 0) {
-            newShifts[existingIndex] = shift;
-        } else {
-            newShifts.push(shift);
-        }
-
-        setShifts(newShifts);
-        saveToStorage(STORAGE_KEYS.SHIFTS, newShifts);
+        // Upsert handles both insert and update if ID exists
+        await supabase.from('shifts').upsert(shift);
     };
 
-    const addAssignment = (assignment: TaskAssignment) => {
-        const newAssignments = [...assignments, assignment];
-        setAssignments(newAssignments);
-        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, newAssignments);
+    const addAssignment = async (assignment: TaskAssignment) => {
+        setAssignments(prev => [...prev, assignment]);
+        await supabase.from('assignments').insert(assignment);
     };
 
-    const removeAssignment = (assignmentId: string) => {
-        const newAssignments = assignments.filter((a) => a.id !== assignmentId);
-        setAssignments(newAssignments);
-        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, newAssignments);
+    const removeAssignment = async (assignmentId: string) => {
+        setAssignments(prev => prev.filter(a => a.id !== assignmentId));
+        await supabase.from('assignments').delete().eq('id', assignmentId);
     };
 
-    const getShiftsByDate = (date: string) => {
-        return shifts.filter((s) => s.date === date);
+    const addStaff = async (newStaff: Staff) => {
+        setStaff(prev => [...prev, newStaff]);
+        await supabase.from('staff').insert(newStaff);
     };
 
-    const getAssignmentsByDate = (date: string) => {
-        return assignments.filter((a) => a.date === date);
+    const updateStaff = async (updatedStaff: Staff) => {
+        setStaff(prev => prev.map(s => s.id === updatedStaff.id ? updatedStaff : s));
+        await supabase.from('staff').update(updatedStaff).eq('id', updatedStaff.id);
     };
 
-    const addStaff = (newStaff: Staff) => {
-        const updatedStaff = [...staff, newStaff];
-        setStaff(updatedStaff);
-        saveToStorage(STORAGE_KEYS.STAFF, updatedStaff);
+    const deleteStaff = async (id: string) => {
+        setStaff(prev => prev.filter(s => s.id !== id));
+        await supabase.from('staff').delete().eq('id', id);
     };
 
-    const updateStaff = (updatedStaffItem: Staff) => {
-        const updatedStaff = staff.map(s => s.id === updatedStaffItem.id ? updatedStaffItem : s);
-        setStaff(updatedStaff);
-        saveToStorage(STORAGE_KEYS.STAFF, updatedStaff);
+    const addTaskType = async (newTaskType: TaskType) => {
+        setTaskTypes(prev => [...prev, newTaskType]);
+        await supabase.from('task_types').insert(newTaskType);
     };
 
-    const deleteStaff = (id: string) => {
-        const updatedStaff = staff.filter(s => s.id !== id);
-        setStaff(updatedStaff);
-        saveToStorage(STORAGE_KEYS.STAFF, updatedStaff);
+    const updateTaskType = async (updatedTask: TaskType) => {
+        setTaskTypes(prev => prev.map(t => t.id === updatedTask.id ? updatedTask : t));
+        await supabase.from('task_types').update(updatedTask).eq('id', updatedTask.id);
     };
 
-    const addTaskType = (newTaskType: TaskType) => {
-        const updatedTasks = [...taskTypes, newTaskType];
-        setTaskTypes(updatedTasks);
-        saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
-    };
-
-    const updateTaskType = (updatedTask: TaskType) => {
-        const updatedTasks = taskTypes.map(t => t.id === updatedTask.id ? updatedTask : t);
-        setTaskTypes(updatedTasks);
-        saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
-    };
-
-    const deleteTaskType = (id: string) => {
-        const updatedTasks = taskTypes.filter(t => t.id !== id);
-        setTaskTypes(updatedTasks);
-        saveToStorage(STORAGE_KEYS.TASKS, updatedTasks);
+    const deleteTaskType = async (id: string) => {
+        setTaskTypes(prev => prev.filter(t => t.id !== id));
+        await supabase.from('task_types').delete().eq('id', id);
     };
 
     const copyAssignments = (assignmentsToCopy: TaskAssignment[]) => {
         setCopiedAssignments(assignmentsToCopy);
     };
 
-    const pasteAssignments = (targetDate: string) => {
+    const pasteAssignments = async (targetDate: string) => {
         if (!copiedAssignments) return;
 
         const newAssignmentsToAdd = copiedAssignments.map(a => ({
@@ -185,51 +173,18 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
             date: targetDate
         }));
 
-        const updatedAssignments = [...assignments, ...newAssignmentsToAdd];
-        setAssignments(updatedAssignments);
-        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, updatedAssignments);
+        setAssignments(prev => [...prev, ...newAssignmentsToAdd]);
+        await supabase.from('assignments').insert(newAssignmentsToAdd);
     };
 
-    const clearAssignments = (date: string) => {
-        const newAssignments = assignments.filter(a => a.date !== date);
-        setAssignments(newAssignments);
-        saveToStorage(STORAGE_KEYS.ASSIGNMENTS, newAssignments);
+    const clearAssignments = async (date: string) => {
+        setAssignments(prev => prev.filter(a => a.date !== date));
+        await supabase.from('assignments').delete().eq('date', date);
     };
 
-    const saveToCloud = async (apiKey: string, binId: string) => {
-        const data = {
-            staff,
-            taskTypes,
-            requests,
-            shifts,
-            assignments
-        };
-        await updateJSONBin(binId, apiKey, data);
-    };
-
-    const loadFromCloud = async (apiKey: string, binId: string) => {
-        const data = await fetchFromJSONBin(binId, apiKey);
-        if (data.staff) {
-            setStaff(data.staff);
-            saveToStorage(STORAGE_KEYS.STAFF, data.staff);
-        }
-        if (data.taskTypes) {
-            setTaskTypes(data.taskTypes);
-            saveToStorage(STORAGE_KEYS.TASKS, data.taskTypes);
-        }
-        if (data.requests) {
-            setRequests(data.requests);
-            saveToStorage(STORAGE_KEYS.REQUESTS, data.requests);
-        }
-        if (data.shifts) {
-            setShifts(data.shifts);
-            saveToStorage(STORAGE_KEYS.SHIFTS, data.shifts);
-        }
-        if (data.assignments) {
-            setAssignments(data.assignments);
-            saveToStorage(STORAGE_KEYS.ASSIGNMENTS, data.assignments);
-        }
-    };
+    // Helpers (Read-only, no async needed)
+    const getShiftsByDate = (date: string) => shifts.filter(s => s.date === date);
+    const getAssignmentsByDate = (date: string) => assignments.filter(a => a.date === date);
 
     return (
         <ShiftContext.Provider
@@ -257,8 +212,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                 copyAssignments,
                 pasteAssignments,
                 clearAssignments,
-                saveToCloud,
-                loadFromCloud,
+                loading,
             }}
         >
             {children}
