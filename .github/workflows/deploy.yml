@@ -77,7 +77,10 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: |
+          echo "Debug: Checking Supabase URL..."
+          echo "URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}"
+          ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
