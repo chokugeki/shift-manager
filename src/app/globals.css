@@ -779,7 +779,11 @@ button {
     /* Hide everything by default */
   }
 
-  /* Reset visibility for the content we want to print */
+  /* Utility Classes */
+  .ime-active {
+    ime-mode: active;
+  }
+
   body.print-monthly .schedule-table-container,
   body.print-monthly .schedule-table-container *,
   body.print-monthly .print-only-title,

@@ -91,10 +91,10 @@ export default function TaskAdminPage() {
                         <label>業務名</label>
                         <input
                             type="text"
-                            className="form-input"
+                            className="form-input ime-active"
                             ref={nameRef}
                             placeholder="業務名を入力"
-                            autoComplete="off"
+                            autoFocus
                         />
                     </div>
                     <div className="control-group">
