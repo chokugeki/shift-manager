@@ -107,7 +107,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
             {
                 loading: '保存中...',
                 success: '保存しました',
-                error: '保存に失敗しました',
+                error: (err: any) => `保存失敗: ${err.message || '不明なエラー'}`,
             }
         );
     };
@@ -147,7 +147,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
             {
                 loading: '保存中...',
                 success: '保存しました',
-                error: '保存に失敗しました',
+                error: (err: any) => `保存失敗: ${err.message || '不明なエラー'}`,
             }
         );
     };
@@ -162,7 +162,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
             {
                 loading: '保存中...',
                 success: '保存しました',
-                error: '保存に失敗しました',
+                error: (err: any) => `保存失敗: ${err.message || '不明なエラー'}`,
             }
         );
     };
