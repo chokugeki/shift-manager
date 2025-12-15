@@ -151,6 +151,7 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                         className={`task-btn ${selectedTaskType?.id === t.id ? 'active' : ''}`}
                         style={{
                             backgroundColor: t.color,
+                            color: t.textColor || '#000000',
                             width: '100%',
                             textAlign: 'center'
                         }}
@@ -237,7 +238,7 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                                 borderRight: isSameAsNext ? 'none' : '1px solid #eee',
                                                 opacity: taskType ? 1 : 0.5,
                                                 cursor: 'pointer',
-                                                color: '#000'
+                                                color: taskType?.textColor || '#000000'
                                             }}
                                         >
                                             {isStart && taskType && (
