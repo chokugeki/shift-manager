@@ -101,7 +101,12 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         // DB update
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('requests').insert(request);
+                const { error } = await supabase.from('requests').insert({
+                    id: request.id,
+                    date: request.date,
+                    staff_id: request.staffId,
+                    type: request.type
+                });
                 if (error) throw error;
             })(),
             {
@@ -141,7 +146,12 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         // Upsert handles both insert and update if ID exists
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('shifts').upsert(shift);
+                const { error } = await supabase.from('shifts').upsert({
+                    id: shift.id,
+                    date: shift.date,
+                    staff_id: shift.staffId,
+                    shift_type: shift.shiftType
+                });
                 if (error) throw error;
             })(),
             {
@@ -156,7 +166,14 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         setAssignments(prev => [...prev, assignment]);
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('assignments').insert(assignment);
+                const { error } = await supabase.from('assignments').insert({
+                    id: assignment.id,
+                    date: assignment.date,
+                    staff_id: assignment.staffId,
+                    start_time: assignment.startTime,
+                    end_time: assignment.endTime,
+                    task_type_id: assignment.taskTypeId,
+                });
                 if (error) throw error;
             })(),
             {
@@ -288,7 +305,15 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         setAssignments(prev => [...prev, ...newAssignmentsToAdd]);
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('assignments').insert(newAssignmentsToAdd);
+                const mappedAssignments = newAssignmentsToAdd.map(a => ({
+                    id: a.id,
+                    date: a.date,
+                    staff_id: a.staffId,
+                    start_time: a.startTime,
+                    end_time: a.endTime,
+                    task_type_id: a.taskTypeId,
+                }));
+                const { error } = await supabase.from('assignments').insert(mappedAssignments);
                 if (error) throw error;
             })(),
             {
