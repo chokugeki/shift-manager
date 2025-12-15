@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useShiftContext } from '@/context/ShiftContext';
 import Link from 'next/link';
 
 export default function TaskAdminPage() {
     const { taskTypes, addTaskType, updateTaskType, deleteTaskType } = useShiftContext();
-    const [newName, setNewName] = useState('');
+    const nameRef = useRef<HTMLInputElement>(null);
     const [newDuration, setNewDuration] = useState(60);
     const [newColor, setNewColor] = useState('#FFB74D');
     const [newTextColor, setNewTextColor] = useState('#000000');
@@ -39,38 +39,39 @@ export default function TaskAdminPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!newName.trim()) return;
+        const name = nameRef.current?.value || '';
+        if (!name.trim()) return;
 
         if (editingId) {
             updateTaskType({
                 id: editingId,
-                name: newName,
+                name: name,
                 duration: newDuration,
                 color: newColor,
                 textColor: newTextColor,
             });
             setEditingId(null);
             // Reset all when finishing edit
-            setNewName('');
+            if (nameRef.current) nameRef.current.value = '';
             setNewDuration(60);
             setNewColor('#FFB74D');
             setNewTextColor('#000000');
         } else {
             addTaskType({
                 id: `task-${Date.now()}`,
-                name: newName,
+                name: name,
                 duration: newDuration,
                 color: newColor,
                 textColor: newTextColor,
             });
             // Only reset name when adding new, preserve duration and color
-            setNewName('');
+            if (nameRef.current) nameRef.current.value = '';
         }
     };
 
     const handleEdit = (t: { id: string; name: string; duration: number; color: string; textColor?: string }) => {
         setEditingId(t.id);
-        setNewName(t.name);
+        if (nameRef.current) nameRef.current.value = t.name;
         setNewDuration(t.duration);
         setNewColor(t.color);
         setNewTextColor(t.textColor || '#000000');
@@ -91,9 +92,9 @@ export default function TaskAdminPage() {
                         <input
                             type="text"
                             className="form-input"
-                            value={newName}
-                            onChange={(e) => setNewName(e.target.value)}
+                            ref={nameRef}
                             placeholder="業務名を入力"
+                            autoComplete="off"
                         />
                     </div>
                     <div className="control-group">
@@ -139,7 +140,7 @@ export default function TaskAdminPage() {
                                         if (window.confirm('本当に削除しますか？')) {
                                             deleteTaskType(editingId);
                                             setEditingId(null);
-                                            setNewName('');
+                                            if (nameRef.current) nameRef.current.value = '';
                                             setNewDuration(60);
                                             setNewColor('#FFB74D');
                                             setNewTextColor('#000000');
@@ -153,7 +154,7 @@ export default function TaskAdminPage() {
                                     className="btn btn-outline"
                                     onClick={() => {
                                         setEditingId(null);
-                                        setNewName('');
+                                        if (nameRef.current) nameRef.current.value = '';
                                         setNewDuration(60);
                                         setNewColor('#FFB74D');
                                         setNewTextColor('#000000');
