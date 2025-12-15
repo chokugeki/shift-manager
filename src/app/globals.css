@@ -608,7 +608,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  /* color: white; Removed to allow dynamic coloring */
   font-size: 0.75rem;
   font-weight: 700;
   overflow: hidden;

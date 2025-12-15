@@ -250,7 +250,8 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                                                     justifyContent: 'flex-start',
                                                     width: 'max-content',
                                                     right: 'auto',
-                                                    zIndex: 10
+                                                    zIndex: 10,
+                                                    color: 'inherit'
                                                 }}>
                                                     {taskType.name}
                                                 </div>
@@ -263,22 +264,24 @@ export default function GanttChart({ date, shifts }: GanttChartProps) {
                     })}
                 </div>
             </div>
-            {hoveredCell && (
-                <div style={{
-                    position: 'fixed',
-                    top: hoveredCell.y - 30, // Position above cursor
-                    left: hoveredCell.x + 10, // Position to right of cursor
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    color: 'white',
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    fontSize: '12px',
-                    zIndex: 1000,
-                    pointerEvents: 'none'
-                }}>
-                    {hoveredCell.time}
-                </div>
-            )}
-        </div>
+            {
+                hoveredCell && (
+                    <div style={{
+                        position: 'fixed',
+                        top: hoveredCell.y - 30, // Position above cursor
+                        left: hoveredCell.x + 10, // Position to right of cursor
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        zIndex: 1000,
+                        pointerEvents: 'none'
+                    }}>
+                        {hoveredCell.time}
+                    </div>
+                )
+            }
+        </div >
     );
 }
