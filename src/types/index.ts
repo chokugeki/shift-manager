@@ -7,6 +7,7 @@ export interface TaskType {
   id: string;
   name: string;
   color: string;
+  textColor?: string;
   duration: number; // in minutes
 }
 

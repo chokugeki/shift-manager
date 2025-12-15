@@ -69,7 +69,15 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                 ]);
 
                 if (staffRes.data) setStaff(staffRes.data);
-                if (tasksRes.data) setTaskTypes(tasksRes.data);
+                if (tasksRes.data) {
+                    setTaskTypes(tasksRes.data.map((t: any) => ({
+                        id: t.id,
+                        name: t.name,
+                        color: t.color,
+                        textColor: t.text_color,
+                        duration: t.duration
+                    })));
+                }
                 if (shiftsRes.data) {
                     setShifts(shiftsRes.data.map((s: any) => ({
                         id: s.id,
@@ -271,7 +279,13 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         setTaskTypes(prev => [...prev, newTaskType]);
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('task_types').insert(newTaskType);
+                const { error } = await supabase.from('task_types').insert({
+                    id: newTaskType.id,
+                    name: newTaskType.name,
+                    color: newTaskType.color,
+                    text_color: newTaskType.textColor,
+                    duration: newTaskType.duration
+                });
                 if (error) throw error;
             })(),
             {
@@ -286,7 +300,12 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         setTaskTypes(prev => prev.map(t => t.id === updatedTask.id ? updatedTask : t));
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('task_types').update(updatedTask).eq('id', updatedTask.id);
+                const { error } = await supabase.from('task_types').update({
+                    name: updatedTask.name,
+                    color: updatedTask.color,
+                    text_color: updatedTask.textColor,
+                    duration: updatedTask.duration
+                }).eq('id', updatedTask.id);
                 if (error) throw error;
             })(),
             {
