@@ -4,6 +4,7 @@ import "./globals.css";
 import { ShiftProvider } from "@/context/ShiftContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/Header";
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
             <main className="min-h-screen bg-gray-50">
               {children}
             </main>
+            <Toaster position="bottom-right" />
           </ShiftProvider>
         </AuthProvider>
       </body>
