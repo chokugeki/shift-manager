@@ -70,9 +70,32 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
 
                 if (staffRes.data) setStaff(staffRes.data);
                 if (tasksRes.data) setTaskTypes(tasksRes.data);
-                if (shiftsRes.data) setShifts(shiftsRes.data);
-                if (assignsRes.data) setAssignments(assignsRes.data);
-                if (reqsRes.data) setRequests(reqsRes.data);
+                if (shiftsRes.data) {
+                    setShifts(shiftsRes.data.map((s: any) => ({
+                        id: s.id,
+                        date: s.date,
+                        staffId: s.staff_id,
+                        shiftType: s.shift_type
+                    })));
+                }
+                if (assignsRes.data) {
+                    setAssignments(assignsRes.data.map((a: any) => ({
+                        id: a.id,
+                        date: a.date,
+                        staffId: a.staff_id,
+                        startTime: a.start_time,
+                        endTime: a.end_time,
+                        taskTypeId: a.task_type_id,
+                    })));
+                }
+                if (reqsRes.data) {
+                    setRequests(reqsRes.data.map((r: any) => ({
+                        id: r.id,
+                        date: r.date,
+                        staffId: r.staff_id,
+                        type: r.type
+                    })));
+                }
 
             } catch (error) {
                 console.error('Error fetching data:', error);
