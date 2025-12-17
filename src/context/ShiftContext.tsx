@@ -136,7 +136,8 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                     id: request.id,
                     date: request.date,
                     staff_id: request.staffId,
-                    type: request.type
+                    type: request.type,
+                    user_id: user?.id
                 });
                 if (error) throw error;
             })(),
@@ -181,7 +182,8 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                     id: shift.id,
                     date: shift.date,
                     staff_id: shift.staffId,
-                    shift_type: shift.shiftType
+                    shift_type: shift.shiftType,
+                    user_id: user?.id
                 });
                 if (error) throw error;
             })(),
@@ -204,6 +206,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                     start_time: assignment.startTime,
                     end_time: assignment.endTime,
                     task_type_id: assignment.taskTypeId,
+                    user_id: user?.id
                 });
                 if (error) throw error;
             })(),
@@ -234,7 +237,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
         setStaff(prev => [...prev, newStaff]);
         await toast.promise(
             (async () => {
-                const { error } = await supabase.from('staff').insert(newStaff);
+                const { error } = await supabase.from('staff').insert({ ...newStaff, user_id: user?.id });
                 if (error) throw error;
             })(),
             {
@@ -284,7 +287,8 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                     name: newTaskType.name,
                     color: newTaskType.color,
                     text_color: newTaskType.textColor,
-                    duration: newTaskType.duration
+                    duration: newTaskType.duration,
+                    user_id: user?.id
                 });
                 if (error) throw error;
             })(),
@@ -354,6 +358,7 @@ export const ShiftProvider = ({ children }: { children: ReactNode }) => {
                     start_time: a.startTime,
                     end_time: a.endTime,
                     task_type_id: a.taskTypeId,
+                    user_id: user?.id
                 }));
                 const { error } = await supabase.from('assignments').insert(mappedAssignments);
                 if (error) throw error;
